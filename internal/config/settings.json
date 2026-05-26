@@ -1,0 +1,149 @@
+{
+  "$schema": "https://yass.dev/schema/v1.json",
+  "version": 1,
+  "redaction_tag": "<redacted by yass:{{client}}>",
+  "skip_filenames": [
+    "auth.json", "credentials.json", "credentials", ".credentials.json",
+    "token.json", "tokens.json", "id_token.json", "refresh_token.json"
+  ],
+  "skip_dirs": [
+    "node_modules", ".git", "Cache", "Code Cache", "GPUCache",
+    "Service Worker", "blob_storage", "CachedData", "DawnGraphiteCache",
+    "DawnWebGPUCache", "Crashpad"
+  ],
+  "max_file_bytes": 52428800,
+  "scan_extensions": [
+    ".jsonl", ".json", ".md", ".txt", ".log", ".yml", ".yaml",
+    ".toml", ".ini", ".env", ".cfg", ".conf"
+  ],
+  "sqlite_extensions": [".sqlite", ".sqlite3", ".db", ".vscdb"],
+  "rules": [
+    {"name": "aws-access-key-id", "regex": "\\b((?:AKIA|ASIA|AROA|AIDA|AGPA|ANPA|ANVA|ABIA|ACCA)[0-9A-Z]{16})\\b", "group": 1},
+    {"name": "aws-secret-access-key", "regex": "(?i)aws(?:_|-|\\s)*(?:secret|sk).{0,30}?[\"':=\\s]\\s*([A-Za-z0-9/+=]{40})\\b", "group": 1},
+    {"name": "gcp-api-key", "regex": "\\b(AIza[0-9A-Za-z_\\-]{35})\\b", "group": 1},
+    {"name": "gcp-oauth-client-secret", "regex": "\\b(GOCSPX-[A-Za-z0-9_\\-]{28})\\b", "group": 1},
+    {"name": "gcp-service-account-private-key", "regex": "\"private_key\"\\s*:\\s*\"(-----BEGIN[^\"]+?-----END[^\"]+?-----\\\\n?)\"", "group": 1},
+    {"name": "azure-storage-key", "regex": "(?i)(?:DefaultEndpointsProtocol=https;AccountName=[^;]+;AccountKey=)([A-Za-z0-9+/=]{86,88})", "group": 1},
+    {"name": "github-pat-classic", "regex": "\\b(ghp_[A-Za-z0-9]{36,255})\\b", "group": 1},
+    {"name": "github-pat-fine-grained", "regex": "\\b(github_pat_[A-Za-z0-9_]{82})\\b", "group": 1},
+    {"name": "github-oauth", "regex": "\\b(gho_[A-Za-z0-9]{36,255})\\b", "group": 1},
+    {"name": "github-app-token", "regex": "\\b((?:ghu|ghs)_[A-Za-z0-9]{36,255})\\b", "group": 1},
+    {"name": "github-refresh-token", "regex": "\\b(ghr_[A-Za-z0-9]{36,255})\\b", "group": 1},
+    {"name": "gitlab-pat", "regex": "\\b(glpat-[A-Za-z0-9_\\-]{20,})\\b", "group": 1},
+    {"name": "slack-token", "regex": "\\b(xox[abprs]-[A-Za-z0-9-]{10,})\\b", "group": 1},
+    {"name": "slack-webhook", "regex": "(https://hooks\\.slack\\.com/services/T[A-Z0-9]+/B[A-Z0-9]+/[A-Za-z0-9]{20,})", "group": 1},
+    {"name": "discord-bot-token", "regex": "\\b([MN][A-Za-z\\d]{23}\\.[\\w-]{6}\\.[\\w-]{27,})\\b", "group": 1},
+    {"name": "discord-webhook", "regex": "(https://(?:ptb\\.|canary\\.)?discord(?:app)?\\.com/api/webhooks/\\d+/[A-Za-z0-9_\\-]+)", "group": 1},
+    {"name": "openai-key", "regex": "\\b(sk-[A-Za-z0-9_\\-]{20,})\\b", "group": 1},
+    {"name": "openai-project-key", "regex": "\\b(sk-proj-[A-Za-z0-9_\\-]{40,})\\b", "group": 1},
+    {"name": "anthropic-key", "regex": "\\b(sk-ant-[A-Za-z0-9_\\-]{40,})\\b", "group": 1},
+    {"name": "anthropic-admin-key", "regex": "\\b(sk-ant-admin\\d{2}-[A-Za-z0-9_\\-]{40,})\\b", "group": 1},
+    {"name": "huggingface-token", "regex": "\\b(hf_[A-Za-z0-9]{30,})\\b", "group": 1},
+    {"name": "replicate-token", "regex": "\\b(r8_[A-Za-z0-9]{37})\\b", "group": 1},
+    {"name": "stripe-live-secret", "regex": "\\b(sk_live_[A-Za-z0-9]{20,})\\b", "group": 1},
+    {"name": "stripe-test-secret", "regex": "\\b(sk_test_[A-Za-z0-9]{20,})\\b", "group": 1},
+    {"name": "stripe-restricted", "regex": "\\b(rk_(?:live|test)_[A-Za-z0-9]{20,})\\b", "group": 1},
+    {"name": "sendgrid-key", "regex": "\\b(SG\\.[A-Za-z0-9_\\-]{22}\\.[A-Za-z0-9_\\-]{43})\\b", "group": 1},
+    {"name": "twilio-account-sid", "regex": "\\b(AC[a-f0-9]{32})\\b", "group": 1},
+    {"name": "twilio-key", "regex": "\\b(SK[a-f0-9]{32})\\b", "group": 1},
+    {"name": "npm-token", "regex": "\\b(npm_[A-Za-z0-9]{36})\\b", "group": 1},
+    {"name": "pypi-token", "regex": "\\b(pypi-AgEIcHlwaS5vcmc[A-Za-z0-9_\\-]{50,})\\b", "group": 1},
+    {"name": "digitalocean-token", "regex": "\\b(dop_v1_[a-f0-9]{64})\\b", "group": 1},
+    {"name": "linear-key", "regex": "\\b(lin_api_[A-Za-z0-9]{40,})\\b", "group": 1},
+    {"name": "notion-token", "regex": "\\b(secret_[A-Za-z0-9]{43})\\b", "group": 1},
+    {"name": "figma-pat", "regex": "\\b(figd_[A-Za-z0-9_\\-]{40,})\\b", "group": 1},
+    {"name": "cisco-things-pat", "regex": "\\b(thingspat_[A-Za-z0-9_\\-]{20,})\\b", "group": 1},
+    {"name": "jwt", "regex": "\\b(eyJ[A-Za-z0-9_\\-]{10,}\\.eyJ[A-Za-z0-9_\\-]{10,}\\.[A-Za-z0-9_\\-]{10,})\\b", "group": 1},
+    {"name": "private-key-pem", "regex": "(-----BEGIN (?:RSA |DSA |EC |OPENSSH |PGP |ENCRYPTED |PRIVATE )?PRIVATE KEY-----[\\s\\S]+?-----END (?:RSA |DSA |EC |OPENSSH |PGP |ENCRYPTED |PRIVATE )?PRIVATE KEY-----)", "group": 1},
+    {"name": "password-assignment", "regex": "(?i)(?:password|passwd|pwd)\\s*[:=]\\s*[\"']([^\"'\\s()]{8,})[\"']", "group": 1},
+    {"name": "bearer-token", "regex": "(?i)authorization:\\s*bearer\\s+([A-Za-z0-9_\\-\\.=]{32,})", "group": 1},
+    {"name": "db-conn-str", "regex": "\\b((?:postgres|postgresql|mysql|mongodb(?:\\+srv)?|redis|amqp)://[^:\\s\"']+:[^@\\s\"']+@[^\\s\"']+)", "group": 1}
+  ],
+  "allowlist": [
+    "^[Xx]+$",
+    "(?i)^(?:example|sample|placeholder|redacted|your|my|fake|test|dummy)",
+    "\\.{3,}",
+    "^sk-[A-Z]+_KEY$",
+    "^(?:ghp|gho|ghu|ghs|ghr)_[xX]+$",
+    "^AKIA[xX]+$",
+    "@(?:localhost|127\\.|0\\.0\\.0\\.0|::1|db|postgres|mysql|redis|mongo|rabbitmq)[:/]",
+    "\\$\\{[^}]+\\}",
+    "\\{\\{[^}]+\\}\\}",
+    "<[^>]+>",
+    "%[A-Z_]+%",
+    "\\$[A-Z_][A-Z0-9_]*\\b",
+    "(?i)//user:password@host",
+    "(?i)://[^@/]*:(?:password|pass|secret|changeme|change_me|admin|123456|pwd)@",
+    "(?i)://(?:user|admin|username):"
+  ],
+  "clients": {
+    "claude": {
+      "redact_paths": [
+        {"os": "windows", "path": "{USERPROFILE}\\.claude\\projects"},
+        {"os": "darwin",  "path": "{HOME}/.claude/projects"},
+        {"os": "linux",   "path": "{HOME}/.claude/projects"}
+      ],
+      "report_paths": [
+        {"os": "any", "path": "{HOME}/.claude/settings.json"},
+        {"os": "any", "path": "{HOME}/.claude/settings.local.json"},
+        {"os": "any", "path": "{HOME}/.claude/skills"}
+      ]
+    },
+    "codex": {
+      "redact_paths": [
+        {"os": "any", "path": "{HOME}/.codex/sessions"},
+        {"os": "any", "path": "{HOME}/.codex/archived_sessions"},
+        {"os": "any", "path": "{HOME}/.codex/memories"},
+        {"os": "any", "path": "{HOME}/.codex/history.jsonl"},
+        {"os": "any", "path": "{HOME}/.codex/logs_2.sqlite"}
+      ],
+      "report_paths": [
+        {"os": "any", "path": "{HOME}/.codex/config.toml"},
+        {"os": "any", "path": "{HOME}/.codex/skills"},
+        {"os": "any", "path": "{HOME}/.codex/rules"}
+      ]
+    },
+    "cursor": {
+      "redact_paths": [
+        {"os": "windows", "path": "{APPDATA}\\Cursor\\User\\History"},
+        {"os": "windows", "path": "{APPDATA}\\Cursor\\User\\globalStorage"},
+        {"os": "windows", "path": "{APPDATA}\\Cursor\\User\\workspaceStorage"},
+        {"os": "darwin",  "path": "{HOME}/Library/Application Support/Cursor/User/History"},
+        {"os": "darwin",  "path": "{HOME}/Library/Application Support/Cursor/User/globalStorage"},
+        {"os": "darwin",  "path": "{HOME}/Library/Application Support/Cursor/User/workspaceStorage"},
+        {"os": "linux",   "path": "{HOME}/.config/Cursor/User/History"},
+        {"os": "linux",   "path": "{HOME}/.config/Cursor/User/globalStorage"},
+        {"os": "linux",   "path": "{HOME}/.config/Cursor/User/workspaceStorage"}
+      ],
+      "report_paths": []
+    },
+    "windsurf": {
+      "redact_paths": [
+        {"os": "any",     "path": "{HOME}/.codeium/windsurf"},
+        {"os": "windows", "path": "{APPDATA}\\Windsurf\\User"},
+        {"os": "darwin",  "path": "{HOME}/Library/Application Support/Windsurf/User"},
+        {"os": "linux",   "path": "{HOME}/.config/Windsurf/User"}
+      ],
+      "report_paths": []
+    },
+    "augment": {
+      "redact_paths": [
+        {"os": "windows", "path": "{APPDATA}\\Code\\User\\globalStorage"},
+        {"os": "darwin",  "path": "{HOME}/Library/Application Support/Code/User/globalStorage"},
+        {"os": "linux",   "path": "{HOME}/.config/Code/User/globalStorage"}
+      ],
+      "report_paths": []
+    },
+    "copilot": {
+      "redact_paths": [
+        {"os": "windows", "path": "{APPDATA}\\Code\\User\\workspaceStorage"},
+        {"os": "windows", "path": "{APPDATA}\\Code\\User\\globalStorage\\github.copilot-chat"},
+        {"os": "darwin",  "path": "{HOME}/Library/Application Support/Code/User/workspaceStorage"},
+        {"os": "darwin",  "path": "{HOME}/Library/Application Support/Code/User/globalStorage/github.copilot-chat"},
+        {"os": "linux",   "path": "{HOME}/.config/Code/User/workspaceStorage"},
+        {"os": "linux",   "path": "{HOME}/.config/Code/User/globalStorage/github.copilot-chat"}
+      ],
+      "report_paths": []
+    }
+  }
+}

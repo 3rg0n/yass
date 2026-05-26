@@ -1,0 +1,15 @@
+# Build artifacts
+/yass
+/yass.exe
+/dist/
+*.exe
+
+# Audit logs (might contain SHA-256 hashes of real secrets)
+/.yass-audit/
+*.yass-audit*
+
+# Local override
+/yass.json
+
+# Session handoff notes (not source code)
+/.remember/
