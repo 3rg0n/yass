@@ -14,9 +14,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/ergoncopeland/yass/internal/audit"
-	"github.com/ergoncopeland/yass/internal/clients"
-	"github.com/ergoncopeland/yass/internal/config"
+	"github.com/3rg0n/yass/internal/audit"
+	"github.com/3rg0n/yass/internal/clients"
+	"github.com/3rg0n/yass/internal/config"
 
 	_ "modernc.org/sqlite"
 )

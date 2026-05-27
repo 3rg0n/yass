@@ -13,13 +13,13 @@ Secret-scanning precommit hooks catch secrets before they hit `git`. They don't 
 **Linux / macOS:**
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/3rg0n/yass/main/install.sh | sh
 ```
 
 **Windows (PowerShell):**
 
 ```powershell
-irm https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/3rg0n/yass/main/install.ps1 | iex
 ```
 
 Both installers detect arch (amd64/arm64), download the matching binary from the latest release, verify its SHA-256 against `SHA256SUMS`, and install to a sensible per-user location.
@@ -115,4 +115,4 @@ Once a secret hits an AI provider's logs, the bytes may already be exfiltrated. 
 
 ## License
 
-Apache 2.0.
+MIT. See [LICENSE](LICENSE).

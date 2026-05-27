@@ -6,7 +6,7 @@ package clients
 import (
 	"os"
 
-	"github.com/ergoncopeland/yass/internal/config"
+	"github.com/3rg0n/yass/internal/config"
 )
 
 type Mode string
