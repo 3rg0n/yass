@@ -22,10 +22,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ergoncopeland/yass/internal/audit"
-	"github.com/ergoncopeland/yass/internal/clients"
-	"github.com/ergoncopeland/yass/internal/config"
-	"github.com/ergoncopeland/yass/internal/scanner"
+	"github.com/3rg0n/yass/internal/audit"
+	"github.com/3rg0n/yass/internal/clients"
+	"github.com/3rg0n/yass/internal/config"
+	"github.com/3rg0n/yass/internal/scanner"
 )
 
 // version is overridden at build time via -ldflags "-X main.version=...".

@@ -1,4 +1,4 @@
-module github.com/ergoncopeland/yass
+module github.com/3rg0n/yass
 
 go 1.26.3
 
