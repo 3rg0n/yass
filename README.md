@@ -10,17 +10,37 @@ Secret-scanning precommit hooks catch secrets before they hit `git`. They don't 
 
 ## Install
 
-Download the binary for your platform from [Releases](../../releases) and put it on your `$PATH`. No runtime dependencies — single static binary, ~7 MB.
+**Linux / macOS:**
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.sh | sh
+```
+
+**Windows (PowerShell):**
+
+```powershell
+irm https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.ps1 | iex
+```
+
+Both installers detect arch (amd64/arm64), download the matching binary from the latest release, verify its SHA-256 against `SHA256SUMS`, and install to a sensible per-user location.
+
+Override version or destination:
+
+```sh
+curl -fsSL .../install.sh | sh -s -- --version v0.1.0 --dir ~/bin
+```
+
+```powershell
+& ([scriptblock]::Create((irm '.../install.ps1'))) -Version v0.1.0 -InstallDir 'C:\tools'
+```
+
+Or grab the binary manually from [Releases](../../releases) — it's a single static file, no runtime deps, ~7 MB.
 
 Build from source:
 
 ```sh
 go build -o yass ./cmd/yass
-```
-
-Or cross-compile all targets:
-
-```sh
+# or cross-compile every target
 make release
 ```
 
