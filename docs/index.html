@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>yass — Yet Another Secret Scanner</title>
+<meta name="description" content="Scrubs secrets out of your local AI-client history before someone else does." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=JetBrains+Mono:wght@300;400;500;700;800&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header class="topbar" role="banner">
+  <div class="topbar-dots"><span></span><span></span><span></span></div>
+  <div class="topbar-title">— ecopelan@cisco-sbg-emu : ~/.<span class="amber">claude</span> —</div>
+  <div class="topbar-meta">v0.1.0 · apache-2.0 · internal</div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="classified-band">
+    <span>// CLASSIFIED — INTERNAL — SBG-EMU //</span>
+    <span>// CLASSIFIED — INTERNAL — SBG-EMU //</span>
+    <span>// CLASSIFIED — INTERNAL — SBG-EMU //</span>
+  </div>
+
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="kicker">subject_no_47 / cisco-sbg-emu / yass</div>
+      <h1 class="logo">
+        <span class="y">y</span><span class="a">a</span><span class="s1">s</span><span class="s2">s</span><span class="cursor">_</span>
+      </h1>
+      <p class="tagline">
+        Yet Another Secret Scanner. Scrubs <s>your sins</s> leaked credentials out of
+        your local AI-client history before someone with read access to <code>$HOME</code> finds them first.
+      </p>
+
+      <div class="install-row">
+        <div class="install-card" data-platform="unix">
+          <div class="install-card-head">
+            <span class="install-card-os">linux · macOS</span>
+            <button class="copy-btn" data-copy="curl -fsSL https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.sh | sh">copy</button>
+          </div>
+          <pre><code><span class="prompt">$</span> curl -fsSL https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.sh | sh</code></pre>
+        </div>
+
+        <div class="install-card" data-platform="win">
+          <div class="install-card-head">
+            <span class="install-card-os">windows · pwsh</span>
+            <button class="copy-btn" data-copy="irm https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.ps1 | iex">copy</button>
+          </div>
+          <pre><code><span class="prompt">PS&gt;</span> irm https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.ps1 | iex</code></pre>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://github.com/cisco-sbg-emu/yass">view source →</a>
+        <a class="btn btn-ghost" href="#threat">why you need this →</a>
+      </div>
+    </div>
+
+    <aside class="hero-right" aria-label="redaction sample">
+      <div class="redaction-stack">
+        <div class="redaction-line">api_key=<span class="redaction-bar">█████████████████████████</span></div>
+        <div class="redaction-line">github_token=<span class="redaction-bar">█████████████████████</span></div>
+        <div class="redaction-line">slack_webhook=<span class="redaction-bar">██████████████████████</span></div>
+        <div class="redaction-line">db_password=<span class="redaction-bar">███████████████</span></div>
+        <div class="redaction-line">aws_secret=<span class="redaction-bar">████████████████████████</span></div>
+        <div class="redaction-line">jwt=<span class="redaction-bar">████████████████████████████</span></div>
+        <div class="redaction-line replaced">+ <span class="amber">&lt;redacted by yass:claude&gt;</span></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ THREAT ============ -->
+<section id="threat" class="section">
+  <div class="section-num">/01</div>
+  <h2 class="section-title">your secrets are leaking into <span class="six">six</span> places you forgot about.</h2>
+  <p class="section-intro">
+    Precommit hooks stop secrets from hitting <code>git</code>. They don't stop the secret
+    you pasted into a Claude conversation last Tuesday. That secret is now sitting in
+    <em>plaintext</em> in your home directory, and so is everything that ran after it.
+  </p>
+
+  <ol class="leak-list">
+    <li>
+      <span class="leak-num">01</span>
+      <code class="leak-path">~/.claude/projects/*.jsonl</code>
+      <span class="leak-note">every Claude turn, verbatim</span>
+    </li>
+    <li>
+      <span class="leak-num">02</span>
+      <code class="leak-path">~/.codex/sessions/**/rollout-*.jsonl</code>
+      <span class="leak-note">Codex transcripts, dated &amp; archived</span>
+    </li>
+    <li>
+      <span class="leak-num">03</span>
+      <code class="leak-path">~/.codex/logs_2.sqlite</code>
+      <span class="leak-note">feedback bodies, request payloads</span>
+    </li>
+    <li>
+      <span class="leak-num">04</span>
+      <code class="leak-path">%APPDATA%\Cursor\User\workspaceStorage\</code>
+      <span class="leak-note">Cursor's chat &amp; file caches</span>
+    </li>
+    <li>
+      <span class="leak-num">05</span>
+      <code class="leak-path">%APPDATA%\Code\User\globalStorage\</code>
+      <span class="leak-note">Copilot Chat, Augment, Windsurf</span>
+    </li>
+    <li>
+      <span class="leak-num">06</span>
+      <code class="leak-path">~/Library/Application Support/{Cursor,Windsurf}/</code>
+      <span class="leak-note">macOS variant of the above</span>
+    </li>
+  </ol>
+
+  <div class="threat-box">
+    <h3>and the things that read your home directory:</h3>
+    <ul class="threat-grid">
+      <li>OS search indexers (Spotlight, Windows Search) — already indexed.</li>
+      <li>Backup tools (Time Machine, OneDrive, iCloud Drive) — already off-disk.</li>
+      <li>SaaS sync clients quietly mirroring <code>~/Documents</code> upstream.</li>
+      <li>AV / EDR with cloud-upload features for "suspicious files."</li>
+      <li>IT support remote-collection scripts running under your user.</li>
+      <li>The next dev who borrows your unlocked laptop for "five seconds."</li>
+    </ul>
+    <p class="threat-tldr">
+      <span class="amber">tl;dr —</span> your <code>$HOME</code> is not a secret store, but right now
+      it kind of is.
+    </p>
+  </div>
+</section>
+
+<!-- ============ WHAT IT DOES ============ -->
+<section class="section">
+  <div class="section-num">/02</div>
+  <h2 class="section-title">three verbs, all idempotent.</h2>
+
+  <div class="verbs">
+    <div class="verb">
+      <div class="verb-tag">scan</div>
+      <p>Walks every detected client. Reports findings. <strong>Never writes.</strong> Safe to run on cron.</p>
+    </div>
+    <div class="verb">
+      <div class="verb-tag">redact</div>
+      <p>Same scan, but rewrites the file in place — atomically — with <code>&lt;redacted by yass:{client}&gt;</code>. Requires <code>--apply</code> to actually mutate. Default is dry-run. Yes, even on this verb.</p>
+    </div>
+    <div class="verb">
+      <div class="verb-tag">audit</div>
+      <p>Every <code>--apply</code> run drops a JSONL log to <code>~/.yass-audit/</code>. SHA-256 of each redacted secret, no plaintext. That's your rotation worklist.</p>
+    </div>
+  </div>
+
+  <h3 class="terminal-heading">$ yass scan --client codex</h3>
+  <pre class="terminal"><code><span class="meta">yass v0.1.0 :: settings=embedded defaults
+mode=DRY-RUN :: targets=8</span>
+
+==&gt; [redact-dryrun] <span class="hl">codex</span> : ~/.codex/sessions
+  <span class="amber">1 finding(s)</span>
+  by rule:
+        1  openai-key
+  by file:
+        1  2026/03/24/rollout-2026-03-24T09-16-58-019d1f22-0c7c-7960-8c73-d21801e9c330.jsonl
+  first 5 findings:
+    [openai-key] ~/.codex/sessions/2026/03/24/rollout-...jsonl:169  (<span class="leakpaint">sk-xuOED...</span>)
+
+==&gt; [redact-dryrun] <span class="hl">codex</span> : ~/.codex/logs_2.sqlite
+  <span class="amber">6 finding(s)</span>
+  by rule:
+        3  sqlite[logs.feedback_log_body]:jwt
+        3  sqlite[logs.feedback_log_body]:bearer-token
+  by file:
+        6  ~/.codex/logs_2.sqlite
+
+<span class="meta">Total: 7 findings across 8 targets (92 files, 21.9 MB scanned)</span></code></pre>
+</section>
+
+<!-- ============ BEFORE / AFTER ============ -->
+<section class="section">
+  <div class="section-num">/03</div>
+  <h2 class="section-title">what redaction actually looks like.</h2>
+
+  <div class="diff">
+    <div class="diff-col diff-before">
+      <div class="diff-head">— before · <code>rollout-…jsonl:169</code></div>
+<pre><code>{"role":"assistant","content":"Try:
+  export OPENAI_API_KEY=<span class="leakpaint">sk-proj-xuOEDqK8fJ2vL9pH3nB7mQ4rT1sW6yZ0aC5dE</span>
+"}</code></pre>
+    </div>
+    <div class="diff-col diff-after">
+      <div class="diff-head">+ after · <code>rollout-…jsonl:169</code></div>
+<pre><code>{"role":"assistant","content":"Try:
+  export OPENAI_API_KEY=<span class="amber">&lt;redacted by yass:claude&gt;</span>
+"}</code></pre>
+    </div>
+  </div>
+
+  <div class="audit-block">
+    <div class="audit-head">+ <code>~/.yass-audit/yass-20260526T185516Z.jsonl</code></div>
+<pre><code>{"ts":"2026-05-26T18:55:16Z","client":"claude","path":"~/.claude/projects/.../rollout-…jsonl","rule":"openai-key","line":169,"start":4892,"end":4948,"secret_sha256":"<span class="hash">6e5313341aad60c55f458d9bdd8ab9b000713250d6684f4e68a41039b91edd79</span>"}</code></pre>
+    <p class="audit-note">
+      Hash only. No plaintext. The audit log is your <strong>rotation worklist</strong> —
+      one row per secret you now need to revoke. (You do still have to revoke them. See FAQ.)
+    </p>
+  </div>
+</section>
+
+<!-- ============ INSTALL ============ -->
+<section id="install" class="section">
+  <div class="section-num">/04</div>
+  <h2 class="section-title">install. <span class="muted">// it's one line.</span></h2>
+
+  <div class="install-grid">
+    <div class="install-block">
+      <div class="install-block-head"><span class="install-block-os">linux · macOS</span><button class="copy-btn" data-copy="curl -fsSL https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.sh | sh">copy</button></div>
+<pre><code><span class="prompt">$</span> curl -fsSL https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.sh | sh</code></pre>
+      <p class="install-detail">Detects arch (amd64 / arm64), installs to <code>/usr/local/bin</code> or <code>~/.local/bin</code>, verifies SHA-256 against <code>SHA256SUMS</code>.</p>
+    </div>
+
+    <div class="install-block">
+      <div class="install-block-head"><span class="install-block-os">windows · pwsh</span><button class="copy-btn" data-copy="irm https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.ps1 | iex">copy</button></div>
+<pre><code><span class="prompt">PS&gt;</span> irm https://raw.githubusercontent.com/cisco-sbg-emu/yass/main/install.ps1 | iex</code></pre>
+      <p class="install-detail">Installs to <code>%LOCALAPPDATA%\Programs\yass</code>, adds it to user PATH, verifies SHA-256.</p>
+    </div>
+
+    <div class="install-block">
+      <div class="install-block-head"><span class="install-block-os">from source</span><button class="copy-btn" data-copy="git clone https://github.com/cisco-sbg-emu/yass &amp;&amp; cd yass &amp;&amp; go build ./cmd/yass">copy</button></div>
+<pre><code><span class="prompt">$</span> git clone https://github.com/cisco-sbg-emu/yass
+<span class="prompt">$</span> cd yass &amp;&amp; go build ./cmd/yass</code></pre>
+      <p class="install-detail">Pure Go, no CGO. <code>make release</code> cross-compiles all 6 targets.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section">
+  <div class="section-num">/05</div>
+  <h2 class="section-title">questions you definitely should ask.</h2>
+
+  <div class="faq">
+    <details>
+      <summary>will this break my AI client login?</summary>
+      <p>
+        No. <code>auth.json</code>, <code>credentials.json</code>, <code>token.json</code>,
+        <code>id_token.json</code>, <code>refresh_token.json</code> are explicit no-touch.
+        yass refuses to scan them. You cannot override that — feature, not bug.
+      </p>
+    </details>
+    <details>
+      <summary>is dry-run really the default?</summary>
+      <p>
+        Yes. <code>scan</code> never writes. <code>redact</code> without
+        <code>--apply</code> also never writes. You have to opt in twice
+        (use the <code>redact</code> verb <em>and</em> pass <code>--apply</code>) before
+        anything mutates. This is on purpose.
+      </p>
+    </details>
+    <details class="rotate">
+      <summary>does redaction = rotation?</summary>
+      <p>
+        <strong class="red">No. Absolutely not.</strong> Once a secret hit a provider's logs,
+        the bytes may already be exfiltrated. yass cleans up <em>your</em> disk; it cannot
+        un-leak the secret. Read the audit log, group by <code>secret_sha256</code>, and
+        rotate every distinct hash at its provider.
+      </p>
+    </details>
+    <details>
+      <summary>does this cover Slack / Teams / Notion paste history?</summary>
+      <p>
+        Out of scope. yass scopes itself to AI-client local stores
+        (Claude / Codex / Cursor / Windsurf / Augment / Copilot). Chat-app exfil is a
+        separate problem with separate APIs and separate retention policies. If you
+        want to sponsor a sibling project, you know where to find me.
+      </p>
+    </details>
+    <details>
+      <summary>regex? entropy? something cleverer?</summary>
+      <p>
+        Provider-anchored regex only. ~40 high-precision rules (<code>sk-</code>,
+        <code>ghp_</code>, <code>AKIA</code>, <code>thingspat_</code>, JWTs, PEM keys, etc.)
+        plus an allowlist that suppresses <code>${VAR}</code>, <code>{{var}}</code>,
+        <code>localhost</code> URIs, and other doc placeholders. No entropy heuristics —
+        deliberately, because false positives in transcripts are noisier than misses.
+      </p>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>cisco-sbg-emu / yass · apache-2.0 · internal tool, no support contract</div>
+    <div class="footer-meta">built with restraint and a small amount of contempt for <code>$HOME</code></div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.getAttribute('data-copy');
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.textContent;
+        btn.textContent = 'copied';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1400);
+      } catch (e) {
+        btn.textContent = 'copy failed';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
