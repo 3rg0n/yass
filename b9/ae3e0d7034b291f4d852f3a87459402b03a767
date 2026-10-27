@@ -1,0 +1,26 @@
+internal/scanner/rules_test.go
+  s_88da00414f0ee6::t_c6b80bcb672602 42,46
+  s_88da00414f0ee6::t_9d50b70a19037d 143-144,146
+  s_88da00414f0ee6::t_2882312ef28186 1-41,43-45,47-106,108-142,145,147-171
+  s_88da00414f0ee6::t_e9ad7d772f24f8 107
+README.md
+  s_88da00414f0ee6::t_b6ce09d6a7123a 83
+internal/config/settings.json
+  s_88da00414f0ee6::t_30a781fdbec9a9 22,60-65,69-73,77-81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "2.0.0",
+  "base_commit_sha": "b9ae3e0d7034b291f4d852f3a87459402b03a767",
+  "prompts": {},
+  "sessions": {
+    "s_88da00414f0ee6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "831c4f8c-72d2-43dd-a2f0-64ea2913e0bb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "3rg0n <62959009+3rg0n@users.noreply.github.com>"
+    }
+  }
+}
