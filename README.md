@@ -80,7 +80,7 @@ Override path with `--audit PATH`. Dry-runs and zero-finding apply runs create n
 
 ## Detection
 
-~40 high-precision provider-anchored rules: AWS, GCP, Azure, GitHub, GitLab, OpenAI, Anthropic, HuggingFace, Stripe, Slack, Twilio, JWTs, PEM private keys, bearer tokens, DB connection strings, etc. Native Go regex (RE2) — no entropy heuristics. Allowlist filters cover common false positives (`${VAR}`, `{{var}}`, `<PLACEHOLDER>`, localhost DB URIs, doc placeholders).
+~45 high-precision provider-anchored rules: AWS (including session tokens), GCP and Google OAuth, Azure, GitHub, GitLab, OpenAI, Anthropic, HuggingFace, Stripe, Slack, Twilio, Atlassian, Vault, JWTs, PEM private keys, bearer tokens, DB connection-string passwords, `.env`-style `*_PASSWORD=` / `*_TOKEN=` assignments, etc. Native Go regex (RE2) — no entropy heuristics. Allowlist entries match only a whole value that is a placeholder (`${VAR}`, `{{var}}`, `<placeholder>`, `%VAR%`, `$VAR`, `your-password-here`, `changeme`), so a real secret that merely starts with `my`, `test` or contains `$` is still redacted.
 
 SQLite stores (`logs_2.sqlite`, `*.vscdb`) are scanned column-by-column across every TEXT/BLOB column of every non-internal table; redactions go through per-cell `UPDATE` statements.
 
