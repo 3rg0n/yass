@@ -19,7 +19,7 @@
   "sqlite_extensions": [".sqlite", ".sqlite3", ".db", ".vscdb"],
   "rules": [
     {"name": "aws-access-key-id", "regex": "\\b((?:AKIA|ASIA|AROA|AIDA|AGPA|ANPA|ANVA|ABIA|ACCA)[0-9A-Z]{16})\\b", "group": 1},
-    {"name": "aws-secret-access-key", "regex": "(?i)aws(?:_|-|\\s)*(?:secret|sk).{0,30}?[\"':=\\s]\\s*([A-Za-z0-9/+=]{40})\\b", "group": 1},
+    {"name": "aws-secret-access-key", "regex": "(?i)aws(?:_|-|\\s)*(?:secret|sk).{0,30}?[\"':=\\s]\\s*([A-Za-z0-9/+=]{40})(?:[^A-Za-z0-9/+=]|$)", "group": 1},
     {"name": "gcp-api-key", "regex": "\\b(AIza[0-9A-Za-z_\\-]{35})\\b", "group": 1},
     {"name": "gcp-oauth-client-secret", "regex": "\\b(GOCSPX-[A-Za-z0-9_\\-]{28})\\b", "group": 1},
     {"name": "gcp-service-account-private-key", "regex": "\"private_key\"\\s*:\\s*\"(-----BEGIN[^\"]+?-----END[^\"]+?-----\\\\n?)\"", "group": 1},
@@ -57,24 +57,28 @@
     {"name": "private-key-pem", "regex": "(-----BEGIN (?:RSA |DSA |EC |OPENSSH |PGP |ENCRYPTED |PRIVATE )?PRIVATE KEY-----[\\s\\S]+?-----END (?:RSA |DSA |EC |OPENSSH |PGP |ENCRYPTED |PRIVATE )?PRIVATE KEY-----)", "group": 1},
     {"name": "password-assignment", "regex": "(?i)(?:password|passwd|pwd)\\s*[:=]\\s*[\"']([^\"'\\s()]{8,})[\"']", "group": 1},
     {"name": "bearer-token", "regex": "(?i)authorization:\\s*bearer\\s+([A-Za-z0-9_\\-\\.=]{32,})", "group": 1},
-    {"name": "db-conn-str", "regex": "\\b((?:postgres|postgresql|mysql|mongodb(?:\\+srv)?|redis|amqp)://[^:\\s\"']+:[^@\\s\"']+@[^\\s\"']+)", "group": 1}
+    {"name": "db-conn-str", "regex": "\\b(?:postgres|postgresql|mysql|mongodb(?:\\+srv)?|redis|amqp)://[^:\\s\"'@/]+:([^@\\s\"']+)@[^\\s\"']+", "group": 1},
+    {"name": "atlassian-api-token", "regex": "\\b(ATATT3[A-Za-z0-9_\\-=]{150,})", "group": 1},
+    {"name": "vault-token", "regex": "\\b(hv[sb]\\.[A-Za-z0-9_\\-]{24,})", "group": 1},
+    {"name": "google-oauth-access", "regex": "\\b(ya29\\.[0-9A-Za-z_\\-]{30,})", "group": 1},
+    {"name": "aws-session-token", "regex": "\\b((?:IQoJb3JpZ2lu|FwoGZXIvYXdz)[A-Za-z0-9/+=]{100,})", "group": 1},
+    {"name": "env-secret-assignment", "regex": "(?m)^[ \\t]*(?:export[ \\t]+)?[A-Z0-9_]*(?:PASSWORD|PASSWD|SECRET|TOKEN|API_KEY|APIKEY|PRIVATE_KEY)[A-Z0-9_]*[ \\t]*=[ \\t]*([^\\s\"'#]{8,})", "group": 1}
   ],
   "allowlist": [
     "^[Xx]+$",
-    "(?i)^(?:example|sample|placeholder|redacted|your|my|fake|test|dummy)",
-    "\\.{3,}",
+    "(?i)^(?:(?:your|my)[-_ ]?)?(?:example|sample|placeholder|redacted|fake|test|dummy|changeme|change_me)(?:[-_ ]?(?:secret|password|passwd|pass|pwd|token|key|api[-_]?key|value))?(?:[-_ ]?here)?$",
+    "(?i)^(?:your|my)[-_ ]?(?:secret|password|passwd|pass|pwd|token|key|api[-_]?key|value)(?:[-_ ]?here)?$",
+    "(?i)^(?:password|pass|secret|admin|123456|pwd|changeme|change_me)$",
+    "^\\.{3,}$",
+    "^\\*{3,}$",
     "^sk-[A-Z]+_KEY$",
     "^(?:ghp|gho|ghu|ghs|ghr)_[xX]+$",
     "^AKIA[xX]+$",
-    "@(?:localhost|127\\.|0\\.0\\.0\\.0|::1|db|postgres|mysql|redis|mongo|rabbitmq)[:/]",
-    "\\$\\{[^}]+\\}",
-    "\\{\\{[^}]+\\}\\}",
-    "<[^>]+>",
-    "%[A-Z_]+%",
-    "\\$[A-Z_][A-Z0-9_]*\\b",
-    "(?i)//user:password@host",
-    "(?i)://[^@/]*:(?:password|pass|secret|changeme|change_me|admin|123456|pwd)@",
-    "(?i)://(?:user|admin|username):"
+    "^\\$\\{[^}]+\\}$",
+    "^\\{\\{[^}]+\\}\\}$",
+    "^<[^>]+>$",
+    "^%[A-Z_]+%$",
+    "^\\$[A-Z_][A-Z0-9_]*$"
   ],
   "clients": {
     "claude": {
